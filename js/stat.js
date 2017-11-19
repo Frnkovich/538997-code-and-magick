@@ -8,6 +8,10 @@ var textHeight = 16;
 var textX = 120;
 var textY = 32;
 var spaceLeft = 150;
+var cloudX = 100;
+var cloudY = 10;
+var cloudWidth = 420;
+var cloudHeight = 270;
 
 window.renderStatistics = function (ctx, names, times){
   
@@ -23,12 +27,11 @@ window.renderStatistics = function (ctx, names, times){
 }
 
 var setColor = function(name){
-  var color;
   var rand = Math.random();
   if (name == "Вы"){
-    return color = 'rgba(255, 0, 0, 1)';
+    return 'rgba(255, 0, 0, 1)';
   }
-  else return color = 'rgba(0, 0, 255,' + rand + ')';
+  return 'rgba(0, 0, 255,' + rand + ')';
 }
 
 var maxResult = function(times){
@@ -41,10 +44,10 @@ var maxResult = function(times){
 
 var renderCloud = function(ctx){
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-  ctx.fillRect(110, 20, 420, 270);
+  ctx.fillRect(cloudX + 10, cloudY + 10, cloudWidth, cloudHeight);
   
   ctx.fillStyle = 'white';
-  ctx.fillRect(100, 10, 420, 270);
+  ctx.fillRect(cloudX, cloudY, cloudWidth, cloudHeight);
 }
 
 var renderHistogram = function(ctx, names, times){
@@ -52,15 +55,15 @@ var renderHistogram = function(ctx, names, times){
   
   for(var i = 0; i<times.length; i++) {
     var columnHeight = times[i] / maxResult(times) * hystogramHeight;
-	var columnY = bottomMargin - columnHeight;
-	var scoreY = columnY  - (spacerHeight + textHeight);
-	var columnX = spaceLeft + (columnWidth + columnSpacer) * i;
+    var columnY = bottomMargin - columnHeight;
+    var scoreY = columnY  - (spacerHeight + textHeight);
+    var columnX = spaceLeft + (columnWidth + columnSpacer) * i;
 	 
-	ctx.fillStyle = setColor(names[i]);
+    ctx.fillStyle = setColor(names[i]);
     ctx.fillRect(columnX, columnY, columnWidth, columnHeight);
 	 
-	ctx.fillStyle = 'black';
-	ctx.fillText(Math.round(times[i]), columnX, columnY - textHeight);
-	ctx.fillText(names[i], columnX, columnY + spacerHeight +  columnHeight);
+    ctx.fillStyle = 'black';
+    ctx.fillText(Math.round(times[i]), columnX, columnY - textHeight);
+    ctx.fillText(names[i], columnX, columnY + spacerHeight +  columnHeight);
   }	
 }
