@@ -8,7 +8,6 @@ var SURNAMES_LIST = ['да Марья', 'Верон', 'Мирабелла', 'В�
 var COAT_COLORS_LIST = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS_LIST = ['black', 'red', 'blue', 'yellow', 'green'];
 var MAX_WIZARD = 4;
-var wizards = [];
 var similarListElement = setup.querySelector('.setup-similar-list');
 var similarWizardTemplate = document.querySelector('#similar-wizard-template').content.querySelector('.setup-similar-item');
 
@@ -29,22 +28,22 @@ var getRandomArray = function (array, index) {
   return resultArray;
 };
 
-var firstNameList = getRandomArray(FIRSTNAMES_LIST, FIRSTNAMES_LIST.length);
-var sureNameList = getRandomArray(SURNAMES_LIST, SURNAMES_LIST.length);
-var coatColorList = getRandomArray(COAT_COLORS_LIST, COAT_COLORS_LIST.length);
-var eyesColorList = getRandomArray(EYES_COLORS_LIST, EYES_COLORS_LIST.length);
-var getWizardData = function (wizardNumber) {
+var getWizardData = function (firstName, sureName, coatColor, eyesColor) {
   return {
-    name: firstNameList[wizardNumber] + ' ' + sureNameList[wizardNumber],
-    coatColor: coatColorList[wizardNumber],
-    eyesColor: eyesColorList[wizardNumber]
+    name: firstName + ' ' + sureName,
+    coatColor: coatColor,
+    eyesColor: eyesColor
   };
 };
 
 var fillWizardsData = function () {
-
+  var wizards = [];
+  var firstNameList = getRandomArray(FIRSTNAMES_LIST, FIRSTNAMES_LIST.length);
+  var sureNameList = getRandomArray(SURNAMES_LIST, SURNAMES_LIST.length);
+  var coatColorList = getRandomArray(COAT_COLORS_LIST, COAT_COLORS_LIST.length);
+  var eyesColorList = getRandomArray(EYES_COLORS_LIST, EYES_COLORS_LIST.length);
   for (var i = 0; i < MAX_WIZARD; i++) {
-    wizards.push(getWizardData(i));
+    wizards.push(getWizardData(firstNameList[i], sureNameList[i], coatColorList[i], eyesColorList[i]));
   }
   return wizards;
 };
@@ -57,7 +56,7 @@ var renderWizard = function (wizard) {
   return wizardElement;
 };
 
-var renderWizards = function () {
+var renderWizards = function (wizards) {
   var fragment = document.createDocumentFragment();
   for (var i = 0; i < wizards.length; i++) {
     fragment.appendChild(renderWizard(wizards[i]));
@@ -66,9 +65,9 @@ var renderWizards = function () {
   setup.querySelector('.setup-similar').classList.remove('hidden');
 }
 
-var renderALl = function () {
-  fillWizardsData();
-  renderWizards();
+var renderAll = function () {
+  var wizards = fillWizardsData();
+  renderWizards(wizards);
 }
 
-renderALl();
+renderAll();
