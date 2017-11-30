@@ -16,17 +16,35 @@ var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-var getWizardData = function () {
+var compareRandom = function () {
+  return Math.random() - 0.5;
+};
+
+var getRandomArray = function (array, index) {
+  var cloneArray = array.slice().sort(compareRandom);
+  var resultArray = [];
+  for (var i = 0; i < index; i++) {
+    resultArray.push(cloneArray[i]);
+  }
+  return resultArray;
+};
+
+var firstNameList = getRandomArray(FIRSTNAMES_LIST, FIRSTNAMES_LIST.length);
+var sureNameList = getRandomArray(SURNAMES_LIST, SURNAMES_LIST.length);
+var coatColorList = getRandomArray(COAT_COLORS_LIST, COAT_COLORS_LIST.length);
+var eyesColorList = getRandomArray(EYES_COLORS_LIST, EYES_COLORS_LIST.length);
+var getWizardData = function (wizardNumber) {
   return {
-    name: FIRSTNAMES_LIST[getRandom(0, FIRSTNAMES_LIST.length - 1)] + ' ' + SURNAMES_LIST[getRandom(0, SURNAMES_LIST.length - 1)],
-    coatColor: COAT_COLORS_LIST[getRandom(0, COAT_COLORS_LIST.length - 1)],
-    eyesColor: EYES_COLORS_LIST[getRandom(0, EYES_COLORS_LIST.length - 1)]
+    name: firstNameList[wizardNumber] + ' ' + sureNameList[wizardNumber],
+    coatColor: coatColorList[wizardNumber],
+    eyesColor: eyesColorList[wizardNumber]
   };
 };
 
 var fillWizardsData = function () {
+
   for (var i = 0; i < MAX_WIZARD; i++) {
-    wizards.push(getWizardData());
+    wizards.push(getWizardData(i));
   }
   return wizards;
 };
