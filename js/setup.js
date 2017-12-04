@@ -6,7 +6,7 @@ var FIRSTNAMES_LIST = ['Иван', 'Хуан Себастьян', 'Мария', 
 var SURNAMES_LIST = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS_LIST = ['rgb(101, 137, 164)', 'rgb(241, 43, 107)', 'rgb(146, 100, 161)', 'rgb(56, 159, 117)', 'rgb(215, 210, 55)', 'rgb(0, 0, 0)'];
 var EYES_COLORS_LIST = ['black', 'red', 'blue', 'yellow', 'green'];
-var FIREBALL_COLORS_LIST = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848',];
+var FIREBALL_COLORS_LIST = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var MAX_WIZARD = 4;
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
@@ -23,10 +23,6 @@ var setupUserName = setup.querySelector('.setup-user-name');
 var indexCoat = 0;
 var indexEyes = 0;
 var indexFireball = 0;
-
-var getRandom = function (min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-};
 
 var compareRandom = function () {
   return Math.random() - 0.5;
@@ -76,7 +72,7 @@ var renderWizards = function (wizards) {
   }
   similarListElement.appendChild(fragment);
   setup.querySelector('.setup-similar').classList.remove('hidden');
-}
+};
 
 var closePopup = function () {
   setup.classList.add('hidden');
@@ -107,17 +103,17 @@ var onClosePopup = function (evt) {
 };
 
 var onSetupWizardCoat = function () {
-  (indexCoat >= COAT_COLORS_LIST.length - 1) ? indexCoat = 0 : indexCoat++;
+  indexCoat >= COAT_COLORS_LIST.length - 1 ? indexCoat = 0 : indexCoat++;
   setupWizardCoat.style.fill = COAT_COLORS_LIST[indexCoat];
 };
 
 var onSetupWizardEyes = function () {
-  (indexEyes >= EYES_COLORS_LIST.length - 1) ? indexEyes = 0 : indexEyes++;
+  indexEyes >= EYES_COLORS_LIST.length - 1 ? indexEyes = 0 : indexEyes++;
   setupWizardEyes.style.fill = EYES_COLORS_LIST[indexEyes];
 };
 
 var onSetupWizardFireball = function () {
-  (indexFireball >= FIREBALL_COLORS_LIST.length - 1) ? indexFireball = 0 : indexFireball++;
+  indexFireball >= FIREBALL_COLORS_LIST.length - 1 ? indexFireball = 0 : indexFireball++;
   setupWizardFireball.style.background = FIREBALL_COLORS_LIST[indexFireball];
 };
 
@@ -129,10 +125,10 @@ var renderAll = function () {
   setupOpen.addEventListener('keydown', onOpenPopup);
   setupClose.addEventListener('click', onClosePopup);
   setupClose.addEventListener('keydown', onClosePopup);
-  setupUserName.addEventListener('focus', function() {
+  setupUserName.addEventListener('focus', function () {
     document.removeEventListener('keydown', onPopupEscPress);
   });
-  setupUserName.addEventListener('blur', function() {
+  setupUserName.addEventListener('blur', function () {
     document.addEventListener('keydown', onPopupEscPress);
   });
   setupWizardCoat.addEventListener('click', onSetupWizardCoat);
